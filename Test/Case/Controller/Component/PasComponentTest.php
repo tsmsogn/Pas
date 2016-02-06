@@ -3,7 +3,7 @@ App::uses('Controller', 'Controller');
 App::uses('PasComponent', 'Pas.Controller/Component');
 
 class TestPasComponent extends PasComponent {
-	
+
 }
 
 class TestPasController extends Controller {
