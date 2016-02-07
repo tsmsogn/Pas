@@ -37,6 +37,8 @@ class PasFormHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testPasPostLink() {
+		Router::connect('/:controller/:action/*');
+
 		$result = $this->PasForm->pasPostLink('Delete', array('controller' => 'posts', 'action' => 'delete', 1));
 		$expected = array(
 			'form' => array(
@@ -50,7 +52,29 @@ class PasFormHelperTest extends CakeTestCase {
 
 		$request = $this->PasForm->request;
 		$request->named = array('page' => 1);
-		$request->query = 'foo=bar';
+		$request->query = array('foo' => 'bar');
+
+		$result = $this->PasForm->pasPostLink('Delete', '/posts/delete/1');
+		$expected = array(
+			'form' => array(
+				'method' => 'post', 'action' => '/posts/delete/1/page:1?foo=bar',
+				'name' => 'preg:/post_\w+/', 'id' => 'preg:/post_\w+/', 'style' => 'display:none;'
+			),
+			'input' => array('type' => 'hidden', 'name' => '_method', 'value' => 'POST'),
+			'/form'
+		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->PasForm->pasPostLink('Delete', '/posts/delete/1/page:2?foo=baz');
+		$expected = array(
+			'form' => array(
+				'method' => 'post', 'action' => '/posts/delete/1/page:2?foo=baz',
+				'name' => 'preg:/post_\w+/', 'id' => 'preg:/post_\w+/', 'style' => 'display:none;'
+			),
+			'input' => array('type' => 'hidden', 'name' => '_method', 'value' => 'POST'),
+			'/form'
+		);
+		$this->assertTags($result, $expected);
 
 		// Test for named and query
 		$result = $this->PasForm->pasPostLink('Delete', array('controller' => 'posts', 'action' => 'delete', 1));
@@ -65,7 +89,7 @@ class PasFormHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 
 		// Test for overriding
-		$result = $this->PasForm->pasPostLink('Delete', array('controller' => 'posts', 'action' => 'delete', 'page' => 2, '?' => 'foo=baz', 1));
+		$result = $this->PasForm->pasPostLink('Delete', array('controller' => 'posts', 'action' => 'delete', 'page' => 2, '?' => array('foo' => 'baz'), 1));
 		$expected = array(
 			'form' => array(
 				'method' => 'post', 'action' => '/posts/delete/1/page:2?foo=baz',

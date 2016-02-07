@@ -73,6 +73,8 @@ class PasComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testPasRedirect() {
+		Router::connect('/:controller/:action/*');
+
 		$this->Controller->action = 'index';
 
 		$this->Pas->pasRedirect(array('action' => 'index'));
@@ -81,10 +83,34 @@ class PasComponentTest extends CakeTestCase {
 		);
 		$this->assertEqual($expected, $this->Controller->redirectUrl);
 
-		// Test for named and query
 		$this->Controller->request->params['named'] = array('page' => 1);
 		$this->Controller->request->query = array('foo' => 'bar');
 
+		$this->Pas->pasRedirect('/posts/index');
+		$expected = array(
+			'plugin' => false,
+			'controller' => 'posts',
+			'action' => 'index',
+			'page' => 1,
+			'?' => array(
+				'foo' => 'bar'
+			)
+		);
+		$this->assertEqual($expected, $this->Controller->redirectUrl);
+
+		$this->Pas->pasRedirect('/posts/index/page:2?foo=baz');
+		$expected = array(
+			'plugin' => false,
+			'controller' => 'posts',
+			'action' => 'index',
+			'page' => 2,
+			'?' => array(
+				'foo' => 'baz'
+			)
+		);
+		$this->assertEqual($expected, $this->Controller->redirectUrl);
+
+		// Test for named and query
 		$this->Pas->pasRedirect(array('action' => 'index'));
 		$expected = array(
 			'action' => 'index',

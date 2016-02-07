@@ -37,13 +37,23 @@ class PasHtmlHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testPaLink() {
+		Router::connect('/:controller/:action/*');
+
 		$result = $this->PasHtml->pasLink('Posts', array('controller' => 'posts', 'action' => 'edit', 1));
 		$expected = array('a' => array('href' => '/posts/edit/1'), 'Posts', '/a');
 		$this->assertTags($result, $expected);
 
 		$request = $this->PasHtml->request;
 		$request->named = array('page' => 1);
-		$request->query = 'foo=bar';
+		$request->query = array('foo' => 'bar');
+
+		$result = $this->PasHtml->pasLink('Posts', '/posts/edit/1');
+		$expected = array('a' => array('href' => '/posts/edit/1/page:1?foo=bar'), 'Posts', '/a');
+		$this->assertTags($result, $expected);
+
+		$result = $this->PasHtml->pasLink('Posts', '/posts/edit/1/page:2?foo=baz');
+		$expected = array('a' => array('href' => '/posts/edit/1/page:2?foo=baz'), 'Posts', '/a');
+		$this->assertTags($result, $expected);
 
 		// Test for named and query
 		$result = $this->PasHtml->pasLink('Posts', array('controller' => 'posts', 'action' => 'edit', 1));
@@ -51,7 +61,7 @@ class PasHtmlHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 
 		// Test for overriding
-		$result = $this->PasHtml->pasLink('Posts', array('controller' => 'posts', 'action' => 'edit', 'page' => 2, '?' => 'foo=baz', 1));
+		$result = $this->PasHtml->pasLink('Posts', array('controller' => 'posts', 'action' => 'edit', 'page' => 2, '?' => array('foo' => 'baz'), 1));
 		$expected = array('a' => array('href' => '/posts/edit/1/page:2?foo=baz'), 'Posts', '/a');
 		$this->assertTags($result, $expected);
 	}
