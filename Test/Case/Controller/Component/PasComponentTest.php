@@ -25,6 +25,8 @@ class TestPasController extends Controller {
  */
 	public function redirect($url, $status = null, $exit = true) {
 		$this->redirectUrl = $url;
+		$this->redirectStatus = $status;
+		$this->exit = $exit;
 	}
 
 }
@@ -82,6 +84,15 @@ class PasComponentTest extends CakeTestCase {
 			'action' => 'index',
 		);
 		$this->assertEqual($expected, $this->Controller->redirectUrl);
+
+		// Test for redirect status and whether exit or not
+		$this->Pas->pasRedirect(array('action' => 'index'), 302, false);
+		$expected = array(
+			'action' => 'index',
+		);
+		$this->assertEqual($expected, $this->Controller->redirectUrl);
+		$this->assertEqual(302, $this->Controller->redirectStatus);
+		$this->assertEqual(false, $this->Controller->exit);
 
 		$this->Controller->request->params['named'] = array('page' => 1);
 		$this->Controller->request->query = array('foo' => 'bar');

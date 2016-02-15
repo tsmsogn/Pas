@@ -22,10 +22,12 @@ class PasComponent extends Component {
 
 /**
  * @param null $url
+ * @param null $status
+ * @param bool $exit
  */
-	public function pasRedirect($url = null) {
+	public function pasRedirect($url = null, $status = null, $exit = true) {
 		$url = Pas::parse($this->controller->request, $url);
-		$this->controller->redirect($url);
+		$this->controller->redirect($url, $status, $exit);
 	}
 
 }
