@@ -10,18 +10,17 @@ env:
   global:
     - PLUGIN_NAME=Pas
     - REQUIRE=""
+    - DB=mysql CAKE_REF=2.4.0
 
   matrix:
-    - DB=mysql CAKE_VERSION=2.4
-    - DB=mysql CAKE_VERSION=2.5
-    - DB=mysql CAKE_VERSION=2.6
+    - DB=mysql CAKE_REF=2.4.0
+    - DB=mysql CAKE_REF=2.5.0
+    - DB=mysql CAKE_REF=2.6.0
 
 matrix:
   include:
     - php: 5.4
       env:
-        - DB=mysql
-        - CAKE_VERSION=2.4
         - CODECOVERAGE=1
     - php: 5.4
       env:
