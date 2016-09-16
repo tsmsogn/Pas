@@ -21,7 +21,7 @@ class PasHtmlHelper extends HtmlHelper {
  */
 	public function pasLink($title, $url = null, $options = array(), $confirmMessage = false) {
 		$url = Pas::parse($this->request, $url);
-		return parent::link($title, $url, $options, $confirmMessage);
+		return $this->link($title, $url, $options, $confirmMessage);
 	}
 
 }

@@ -13,7 +13,7 @@ class PasFormHelper extends FormHelper {
  */
 	public function pasPostLink($title, $url = null, $options = array(), $confirmMessage = false) {
 		$url = Pas::parse($this->request, $url);
-		return parent::postLink($title, $url, $options, $confirmMessage);
+		return $this->postLink($title, $url, $options, $confirmMessage);
 	}
 
 }
