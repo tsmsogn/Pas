@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/tsmsogn/Pas.svg?branch=master)](https://travis-ci.org/tsmsogn/Pas)
 [![Coverage Status](https://coveralls.io/repos/github/tsmsogn/Pas/badge.svg?branch=master)](https://coveralls.io/github/tsmsogn/Pas?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/tsmsogn/Pas/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/tsmsogn/Pas/?branch=master)
 
 # Pas Plugin for CakePHP 2.x
 
