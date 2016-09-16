@@ -5,9 +5,11 @@
 class Pas {
 
 /**
- * @param CakeRequest $request
- * @param $url
- * @return array
+ * Parsed URL which is generate from given $url and current request query params
+ *
+ * @param CakeRequest $request CakeRequest
+ * @param string $url URL to be parsed
+ * @return array Parsed elements which is generate from given $url and current request query params
  */
 	public static function parse(CakeRequest $request, $url) {
 		$pass = $named = $query = $queryParameters = array();
