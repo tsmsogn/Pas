@@ -16,7 +16,7 @@ class PasComponent extends Component {
 /**
  * @param Controller $controller
  */
-	public function startup(Controller $controller) {
+	public function initialize(Controller $controller) {
 		$this->controller = $controller;
 	}
 
