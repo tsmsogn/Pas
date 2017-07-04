@@ -47,7 +47,7 @@ class PasComponentTest extends CakeTestCase {
 		$this->Controller = new TestPasController(new CakeRequest(), new CakeResponse());
 		$this->Controller->Components->init($this->Controller);
 		$this->Pas = $this->Controller->TestPas;
-		$this->Pas->startup($this->Controller);
+		$this->Pas->initialize($this->Controller);
 
 		$this->Controller->request->params = array(
 			'named' => array(),
